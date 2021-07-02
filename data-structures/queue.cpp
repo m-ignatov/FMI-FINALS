@@ -63,13 +63,13 @@ Queue<T>::~Queue()
 template <typename T>
 void Queue<T>::pop()
 {
-  if (tail)
+  if (head)
   {
-    if (tail->next)
+    if (head->next)
     {
-      Node<T> *deleteNode = tail;
+      Node<T> *deleteNode = head;
       delete deleteNode;
-      tail = tail->next;
+      head = head->next;
     }
     else
     {
@@ -86,13 +86,12 @@ void Queue<T>::push(const T &value)
   if (tail)
   {
     Node<T> *newNode = new Node<T>(value);
-    newNode->next = tail;
+    tail->next = newNode;
     tail = newNode;
   }
   else
   {
-    tail = new Node<T>(value);
-    head = tail;
+    head = tail = new Node<T>(value);
   }
   length++;
 }
@@ -132,12 +131,12 @@ bool Queue<T>::empty() const
 template <typename T>
 void Queue<T>::deleteQueue()
 {
-  Node<T> *current = tail;
-  while (tail)
+  Node<T> *current = head;
+  while (head)
   {
-    current = tail;
+    current = head;
     delete current;
-    tail = tail->next;
+    head = head->next;
   }
 }
 
@@ -146,16 +145,16 @@ void Queue<T>::copyQueue(const Queue<T> &rhs)
 {
   length = rhs.length;
 
-  Node<T> *rhsCurrent = rhs.tail;
-  tail = new Node<T>(rhsCurrent->value);
+  Node<T> *rhsCurrent = rhs.head;
+  head = tail = new Node<T>(rhsCurrent->value);
 
-  Node<T> *current = tail;
+  Node<T> *current = head;
   rhsCurrent = rhsCurrent->next;
 
   while (rhsCurrent)
   {
     current->next = new Node<T>(rhsCurrent->value);
-    head = current->next;
+    tail = current->next;
 
     current = current->next;
     rhsCurrent = rhsCurrent->next;
@@ -168,6 +167,7 @@ int main()
   q.push(1);
   q.push(2);
   q.push(3);
+  q.push(4);
 
   Queue<int> q2 = q;
   q2.pop();
