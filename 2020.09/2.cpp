@@ -17,13 +17,31 @@ Node *newNode(char text)
   return n;
 }
 
+int findDepth(Node *root)
+{
+  if (!root)
+  {
+    return 0;
+  }
+  int depth = 0;
+  depth = std::max(depth, findDepth(root->left));
+  depth = std::max(depth, findDepth(root->right));
+
+  return depth + 1;
+}
+
 void printText(Node *root)
 {
+  int depth = findDepth(root);
+  int currentDepth = 0;
+
   std::queue<Node *> q;
   q.push(root);
 
   while (!q.empty())
   {
+    currentDepth++;
+
     int size = q.size();
     for (int i = 1; i <= size; i++)
     {
@@ -32,7 +50,7 @@ void printText(Node *root)
 
       std::cout << current->text;
 
-      if (current->left == nullptr && current->right == nullptr)
+      if (current->left == nullptr && current->right == nullptr && currentDepth + 1 >= depth)
       {
         continue;
       }
