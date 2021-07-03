@@ -135,8 +135,8 @@ void Queue<T>::deleteQueue()
   while (head)
   {
     current = head;
-    delete current;
     head = head->next;
+    delete current;
   }
 }
 
