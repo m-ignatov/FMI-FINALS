@@ -50,22 +50,15 @@ void printText(Node *root)
 
       std::cout << current->text;
 
-      if (current->left == nullptr && current->right == nullptr && currentDepth + 1 >= depth)
+      if (!current->left &&
+          !current->right &&
+          currentDepth + 1 >= depth)
       {
         continue;
       }
 
-      Node *left = current->left;
-      Node *right = current->right;
-
-      if (current->left == nullptr)
-      {
-        left = newNode(' ');
-      }
-      if (current->right == nullptr)
-      {
-        right = newNode(' ');
-      }
+      Node *left = current->left ? current->left : newNode(' ');
+      Node *right = current->right ? current->right : newNode(' ');
 
       q.push(left);
       q.push(right);

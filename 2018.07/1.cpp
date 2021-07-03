@@ -31,7 +31,8 @@ bool lessLex(int a, int b)
   arrA[sizeA] = '\0';
   arrB[sizeB] = '\0';
 
-  for (int i = 0;; i++)
+  int minSize = (sizeA < sizeB) ? sizeA : sizeB;
+  for (int i = 0; i < minSize; i++)
   {
     if (arrA[i] < arrB[i])
     {
@@ -42,7 +43,7 @@ bool lessLex(int a, int b)
       return false;
     }
   }
-  return false;
+  return (sizeA < sizeB);
 }
 
 void sortLex(int a[], int n)
