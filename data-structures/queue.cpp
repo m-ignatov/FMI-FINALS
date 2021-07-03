@@ -68,8 +68,8 @@ void Queue<T>::pop()
     if (head->next)
     {
       Node<T> *deleteNode = head;
-      delete deleteNode;
       head = head->next;
+      delete deleteNode;
     }
     else
     {
