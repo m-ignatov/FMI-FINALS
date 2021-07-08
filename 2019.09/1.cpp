@@ -6,11 +6,11 @@ ReturnType fold_left(InputType *arr, size_t size, OpType op, ReturnType nil)
 {
   ReturnType result = nil;
   for (size_t i = 0; i < size; ++i)
-    result = op(arr[i], result);
+    result = op(result, arr[i]);
   return result;
 }
 
-int op(char Digit, int Result) { return (Digit * 10) + (Result - '0'); }
+int op(char Digit, int Result) { return (Result * 10) + (Digit - '0'); }
 
 int str_to_int(const char *str) { return (str == nullptr) ? 0 : fold_left(str, strlen(str), op, 0); }
 
