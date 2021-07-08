@@ -16,6 +16,11 @@ public:
     return current;
   }
 
+  long long max() const
+  {
+    return a + k;
+  }
+
   long long operator++()
   {
     if (last())
@@ -41,7 +46,7 @@ public:
 
   bool last() const
   {
-    return this->current == (a + k);
+    return this->current == max();
   }
 
 private:
@@ -62,7 +67,7 @@ public:
 
   bool operator<(const SquaredInterval &rhs) const
   {
-    return this->operator*() < rhs.operator*();
+    return this->max() < rhs.max();
   }
 };
 
@@ -91,7 +96,7 @@ void b()
 void c()
 {
   SquaredInterval sis[] = {
-      SquaredInterval(2, 3),
+      SquaredInterval(2, 30),
       SquaredInterval(4, 10),
       SquaredInterval(1, 2),
   };
